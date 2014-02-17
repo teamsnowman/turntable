@@ -9,8 +9,9 @@
   width:150px;
   top:-5px;
   right:-5px;
-  background-color: black;
+  /*background-color: black;*/
   position:absolute;
+  background-image: -webkit-radial-gradient(center center, circle cover, black, grey); 
 }
 .hole {
   border-radius:100%;
