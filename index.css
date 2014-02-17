@@ -5,18 +5,31 @@
 
 .record {
   border-radius:100%;
-  height:150px;
-  width:150px;
+  /*height:150px;*/
+  /*width:150px;*/
+  -webkit-transform: rotateY(360deg);
+  -webkit-transition-duration: 1.5s;
+  height: inherit;
+  width: inherit;
   top:-5px;
   right:-5px;
   /*background-color: black;*/
   position:absolute;
-  background-image: -webkit-radial-gradient(center center, circle cover, black, grey); 
+  background-image: -webkit-radial-gradient(center center, circle cover, black, grey);
 }
 @-webkit-keyframes bigger /* Safari and Chrome */
 {
-	from {height:150px;width:150px;}
-	to {height:500px;width:500px;left: calc( 50% - 250px);top: calc( 50% - 250px);z-index:10;}
+	0% {
+    height:150px;
+    width:150px;
+  }
+	100% {
+    height:500px;
+    width: 500px;
+    /*left: calc( 50% - 250px);*/
+    /*top: calc( 50% - 250px);*/
+    z-index:10;
+  }
 }
 .hole {
   border-radius:100%;
@@ -49,11 +62,14 @@
   height:150px;
   width:150px;
   margin: 15px;
+  /*border: red 1px solid;*/
+  /*-webkit-transform: translateZ(1);*/
 }
-.container:active {
-  pointer-events: none;
-  translateZ( -100px );
-  -webkit-animation: bigger 5s; /* Safari and Chrome */
-  -webkit-animation-fill-mode: forwards;  
-
+.container:hover{
+  /*pointer-events: none;*/
+  /*translateZ( -100px );*/
+  -webkit-transform: rotateY(360deg);
+  -webkit-transition-duration: 1.5s;
+  /*-webkit-animation: bigger 5s; /* Safari and Chrome */*/
+  /*-webkit-animation-fill-mode: forwards;  */
 }
