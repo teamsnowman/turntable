@@ -6,6 +6,9 @@ from django.core.urlresolvers import reverse
 from music.models import Song
 from music.forms import UploadForm
 
+from django.utils import simplejson
+import random
+
 def list(request):
     # Handle file upload
     if request.method == 'POST':
@@ -29,3 +32,11 @@ def list(request):
 
     # Render list page with the documents and the form    
     return HttpResponse(template.render(context))
+
+def get_song(request):
+    songs = Song.objects.all()
+    song = random.choice(songs)
+
+    data = {"url": song.audio.url};
+
+    return HttpResponse(simplejson.dumps(data), mimetype='application/json')
