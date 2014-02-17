@@ -1,20 +1,8 @@
-<!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>Minimal Django File Upload Example</title>   
-    </head>
-    <body>
-    <!-- List of uploaded documents -->
-    {% if songs %}
-        <ul>
-        {% for song in songs %}
-            <li><a href="{{ song.audio.url }}">{{ song.name }}</a></li>
-        {% endfor %}
-        </ul>
-    {% else %}
-        <p>No songs.</p>
-    {% endif %}
-
-    </body>
-</html> 
+  <head>
+    <script src="/upload/upload/index.js"></script>
+    <link href="/upload/upload/index.css" rel="stylesheet" type="text/css">
+  </head>
+  <body onload="init()">
+  </body>
+</html>

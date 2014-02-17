@@ -12,5 +12,6 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
     # Here we mount the app under /music. Feel free to use something else
     url(r'^', include('music.urls')),
+    url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': '/static'}),
     url(r'^admin/', include(admin.site.urls)),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
