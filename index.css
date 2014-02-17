@@ -13,6 +13,11 @@
   position:absolute;
   background-image: -webkit-radial-gradient(center center, circle cover, black, grey); 
 }
+@-webkit-keyframes bigger /* Safari and Chrome */
+{
+	from {height:150px;width:150px;}
+	to {height:500px;width:500px;left: calc( 50% - 250px);top: calc( 50% - 250px);z-index:10;}
+}
 .hole {
   border-radius:100%;
   height:10px;
@@ -33,7 +38,7 @@
 }
 .text {
   font-family:'Helvetica Neue', sans-serif;
-  font-size:14px;
+  font-size: 100%;
   text-align:center;
   padding-top:60%;
   -webkit-transform:rotate(10deg);
@@ -44,4 +49,11 @@
   height:150px;
   width:150px;
   margin: 15px;
+}
+.container:active {
+  pointer-events: none;
+  translateZ( -100px );
+  -webkit-animation: bigger 5s; /* Safari and Chrome */
+  -webkit-animation-fill-mode: forwards;  
+
 }
