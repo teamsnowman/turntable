@@ -1,0 +1,4 @@
+wget https://gist.github.com/garrettdreyfus/aa25c2d73224c2d4f5e2/raw/52da5d786f9735f8eb125652517c6b9c21ed66ef/Ubuntu
+wget https://gist.github.com/garrettdreyfus/aa25c2d73224c2d4f5e2/raw/c09b8baf7127bdaed179ca4a1fca6f5725fd5cda/VagrantFile
+chmod 777 Ubuntu
+./Ubuntu
