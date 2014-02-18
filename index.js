@@ -2,7 +2,7 @@ function init(){
   for(var i=0;i<100;i++){
     var color = get_random_color();
     var gradient = "background-image: -webkit-radial-gradient(center center, circle cover,"+color+","+increase_brightness(color, 30)+");" 
-    document.body.innerHTML += "<div class='container'><div class='record'></div><div class='label' style='"+gradient+";'><div class='text' style='color:"+get_text_color(color)+"'>Moosic</div></div><div class='hole'></div></div>";
+    document.body.innerHTML += "<div class='container' onclick='playSong()'><div class='record'></div><div class='label' style='"+gradient+";'><div class='text' style='color:"+get_text_color(color)+"'>Moosic</div></div><div class='hole'></div></div>";
   }
   function get_random_color() {
     return '#' + Math.floor((Math.random() * 0xF00000) + 0x0FFFFF).toString(16);
@@ -44,4 +44,22 @@ function init(){
   function hexToG(h) {return parseInt((cutHex(h)).substring(2,4),16)}
   function hexToB(h) {return parseInt((cutHex(h)).substring(4,6),16)}
   function cutHex(h) {return (h.charAt(0)=="#") ? h.substring(1,7):h}
+}
+
+function playSong() {
+  var audio = document.getElementById("audio");
+  if(!audio.paused)
+    audio.pause();
+  audio.src = JSON.parse(httpGet("../get-song")).url;
+  audio.play();
+}
+
+function httpGet(theUrl)
+{
+  var xmlHttp = null;
+
+  xmlHttp = new XMLHttpRequest();
+  xmlHttp.open( "GET", theUrl, false );
+  xmlHttp.send( null );
+  return xmlHttp.responseText;
 }
