@@ -1,5 +1,6 @@
 var initialwidth = window.innerHeight /window.innerWidth *100 + "%";
 var initialleft = 50 - (window.innerHeight /window.innerWidth*100)/2 + "%";
+var sw =0;
 function init(){
   disable_scroll();
   container = document.getElementById('containerofallcontainers');
@@ -9,7 +10,7 @@ function init(){
   for(var i=0;i<9;i++){
     var color = get_random_color();
     var gradient = "background-image: -webkit-radial-gradient(center center, circle cover,"+color+","+increase_brightness(color, 30)+");" 
-    container.innerHTML += "<div class='container' id='"+i+"' onclick='playSong();enlargeRotate("+i+");'><div class='record'><div class='label' style='"+gradient+";'><div class='text' style='color:"+get_text_color(color)+"'>Music</div><div class='hole'</div</div></div></div>";
+    container.innerHTML += "<div class='container' id='"+i+"' onclick='TURNUP("+i+");'><div class='record'><div class='label' style='"+gradient+";'><div class='text' style='color:"+get_text_color(color)+"'>Music</div><div class='hole'</div</div></div></div>";
   }
 }
 function get_random_color() {
@@ -33,11 +34,11 @@ function wheel(e) {
 }
 function keydown(e) {
     for (var i = keys.length; i--;) {
-            if (e.keyCode === keys[i]) {
-                        preventDefault(e);
-                        return;
-                    }
+        if (e.keyCode === keys[i]) {
+          preventDefault(e);
+          return;
         }
+   }
 }
 function disable_scroll() {
   if (window.addEventListener) {
@@ -47,14 +48,12 @@ function disable_scroll() {
   document.onkeydown = keydown;
 }
 function stopAndGoBack(id){
-    document.getElementById(id).className.replace('rotating','') ;
-    setTimeout(function(){
-      coac = document.getElementById('containerofallcontainers');
-      coac.style.height = "100%" ;
-      coac.style.left = initialleft;
-      coac.style.top = "0%";
-      coac.style.width = initialwidth;
-    },2000);
+    document.getElementById(id).className= document.getElementById(id).className.replace('rotating','') ;
+    coac = document.getElementById('containerofallcontainers');
+    coac.style.height = "100%" ;
+    coac.style.left = initialleft;
+    coac.style.top = "0%";
+    coac.style.width = parseInt(coac.style.width )/3 +"%";
 }
 function enlargeRotate(id){
     coac = document.getElementById('containerofallcontainers');
@@ -107,9 +106,23 @@ function playSong() {
           var xmlDoc = xmlHttp.responseText;
           console.log(xmlDoc);
           audio.src = JSON.parse(xmlDoc).url;
-          audio.play();
+          setTimeout(function(){
+            audio.play();
+          },2000);
       }
   }
   xmlHttp.open( "GET", "/get-song", true );
   xmlHttp.send(null);
+}
+function TURNUP(id){
+  if(sw==0){
+    playSong();
+    enlargeRotate(id);
+    sw =1;
+  }
+  else{
+    document.getElementById('audio').pause();
+    stopAndGoBack(id);
+    sw=0;
+  }
 }

@@ -38,7 +38,7 @@
 }
 .text {
   font-family:'Helvetica Neue', sans-serif;
-  font-size: 100%;
+  font-size: 1em;
   text-align:center;
   padding-top:60%;
   -webkit-transform:rotate(10deg);
