@@ -1,8 +1,16 @@
+var initialwidth = window.innerHeight /window.innerWidth *100 + "%";
+var initialleft = 50 - (window.innerHeight /window.innerWidth*100)/2 + "%";
+var sw =0;
+var last_id =0;
 function init(){
-  for(var i=0;i<100;i++){
+  container = document.getElementById('containerofallcontainers');
+  container.style.height = "100%";
+  container.style.width = window.innerHeight /window.innerWidth *100 + "%";
+  container.style.left = 50 - (window.innerHeight /window.innerWidth*100)/2 + "%";
+  for(var i=0;i<9;i++){
     var color = get_random_color();
     var gradient = "background-image: -webkit-radial-gradient(center center, circle cover,"+color+","+increase_brightness(color, 30)+");" 
-    document.body.innerHTML += "<div class='container' id='"+i+"' onclick='playSong();enlargeRotate("+i+");'><div class='record'><div class='label' style='"+gradient+";'><div class='text' style='color:"+get_text_color(color)+"'>Moosic</div><div class='hole'</div</div></div></div>";
+    container.innerHTML += "<div class='container' id='"+i+"' onclick='TURNUP("+i+");'><div class='record'><div class='label' style='"+gradient+";'><div class='text' style='color:"+get_text_color(color)+"'>Music</div><div class='hole'</div</div></div></div>";
   }
 }
 function get_random_color() {
@@ -21,9 +29,29 @@ function get_brightness(color) {
   B = hexToB(color);
   return (R + G + B) / 3;
 }
+function stopAndGoBack(id){
+    elements = document.getElementsByClassName("container");
+    for(i=0;i<9;i++){
+      elements[i].className = elements[i].className.replace('rotating','') ;
+    }
+    coac = document.getElementById('containerofallcontainers');
+    coac.style.height = "100%" ;
+    coac.style.left = initialleft;
+    coac.style.top = "0%";
+    coac.style.width = parseInt(coac.style.width )/3 +"%";
+}
 function enlargeRotate(id){
-  document.getElementById(id).className += ' enlarged ' ;
-  document.getElementById(id).className += ' rotating ' ;
+    coac = document.getElementById('containerofallcontainers');
+    id_i = parseInt(id);
+    b = (id_i%3);
+    a = (id_i-(id_i%3))/3;
+    coac.style.height = "300%" ;
+    coac.style.left = -b*parseInt(coac.style.width)+"%";
+    coac.style.top = -a*parseInt(coac.style.width)*1.87+"%";
+    coac.style.width = parseInt(coac.style.width )*3 +"%";
+    setTimeout(function(){
+      document.getElementById(id).className += ' rotating ' ;
+    },2000);
 }
 // http://stackoverflow.com/questions/6443990/javascript-calculate-brighter-colour
 function increase_brightness(hex, percent){
@@ -63,9 +91,33 @@ function playSong() {
           var xmlDoc = xmlHttp.responseText;
           console.log(xmlDoc);
           audio.src = JSON.parse(xmlDoc).url;
-          audio.play();
+          setTimeout(function(){
+            audio.play();
+          },2000);
       }
   }
   xmlHttp.open( "GET", "/get-song", true );
   xmlHttp.send(null);
+}
+function TURNUP(id){
+  if(sw==0){
+    playSong();
+    enlargeRotate(id);
+    sw =1;
+    last_id=id;
+  }
+  else{
+    if(id==last_id){
+      document.getElementById('audio').pause();
+      stopAndGoBack(id);
+      sw=0;
+    }
+    else{
+      stopAndGoBack(id);
+      enlargeRotate(id);
+      playSong();
+      sw =1;
+      last_id=id;
+    }  
+  }
 }
