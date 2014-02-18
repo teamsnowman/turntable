@@ -1,8 +1,8 @@
 var initialwidth = window.innerHeight /window.innerWidth *100 + "%";
 var initialleft = 50 - (window.innerHeight /window.innerWidth*100)/2 + "%";
 var sw =0;
+var last_id =0;
 function init(){
-  disable_scroll();
   container = document.getElementById('containerofallcontainers');
   container.style.height = "100%";
   container.style.width = window.innerHeight /window.innerWidth *100 + "%";
@@ -29,26 +29,11 @@ function get_brightness(color) {
   B = hexToB(color);
   return (R + G + B) / 3;
 }
-function wheel(e) {
-  preventDefault(e);
-}
-function keydown(e) {
-    for (var i = keys.length; i--;) {
-        if (e.keyCode === keys[i]) {
-          preventDefault(e);
-          return;
-        }
-   }
-}
-function disable_scroll() {
-  if (window.addEventListener) {
-        window.addEventListener('DOMMouseScroll', wheel, false);
-    }
-  window.onmousewheel = document.onmousewheel = wheel;
-  document.onkeydown = keydown;
-}
 function stopAndGoBack(id){
-    document.getElementById(id).className= document.getElementById(id).className.replace('rotating','') ;
+    elements = document.getElementsByClassName("container");
+    for(i=0;i<9;i++){
+      elements[i].className = elements[i].className.replace('rotating','') ;
+    }
     coac = document.getElementById('containerofallcontainers');
     coac.style.height = "100%" ;
     coac.style.left = initialleft;
@@ -119,10 +104,20 @@ function TURNUP(id){
     playSong();
     enlargeRotate(id);
     sw =1;
+    last_id=id;
   }
   else{
-    document.getElementById('audio').pause();
-    stopAndGoBack(id);
-    sw=0;
+    if(id==last_id){
+      document.getElementById('audio').pause();
+      stopAndGoBack(id);
+      sw=0;
+    }
+    else{
+      stopAndGoBack(id);
+      enlargeRotate(id);
+      playSong();
+      sw =1;
+      last_id=id;
+    }  
   }
 }
