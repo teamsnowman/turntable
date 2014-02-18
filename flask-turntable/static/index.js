@@ -95,19 +95,21 @@ function increase_brightness(hex, percent){
   function cutHex(h) {return (h.charAt(0)=="#") ? h.substring(1,7):h}
 
 function playSong() {
-  //var audio = document.getElementById("audio");
-  //if(!audio.paused)
-    //audio.pause();
-  //audio.src = JSON.parse(httpGet("../get-song")).url;
-  //audio.play();
-}
+  var audio = document.getElementById("audio");
+  if(!audio.paused)
+    audio.pause();
 
-function httpGet(theUrl)
-{
   var xmlHttp = null;
-
   xmlHttp = new XMLHttpRequest();
-  xmlHttp.open( "GET", theUrl, false );
-  xmlHttp.send( null );
-  return xmlHttp.responseText;
+
+  xmlHttp.onreadystatechange = function() {
+      if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+          var xmlDoc = xmlHttp.responseText;
+          console.log(xmlDoc);
+          audio.src = JSON.parse(xmlDoc).url;
+          audio.play();
+      }
+  }
+  xmlHttp.open( "GET", "/get-song", true );
+  xmlHttp.send(null);
 }
