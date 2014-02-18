@@ -22,7 +22,8 @@ def upload_file():
         file = request.files['file']
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            s3 = boto.connect_s3()
+            s3 = boto.connect_s3(aws_access_key_id = os.environ["AWS_ACCESS_KEY_ID"], 
+                aws_secret_access_key = os.environ["AWS_SECRET_ACCESS_KEY"])
             bucket = s3.create_bucket('nmoroze-turntable')
             key = bucket.new_key(filename)
             key.set_contents_from_file(file, headers=None, replace=True, cb=None, num_cb=10, policy=None, md5=None) 
@@ -31,7 +32,8 @@ def upload_file():
 
 @app.route('/get-song')
 def get_song():
-    s3 = boto.connect_s3()
+    s3 = boto.connect_s3(aws_access_key_id = os.environ["AWS_ACCESS_KEY_ID"], 
+        aws_secret_access_key = os.environ["AWS_SECRET_ACCESS_KEY"])
     bucket = s3.create_bucket('nmoroze-turntable')
     keys = bucket.list()
     urls = []
