@@ -12,6 +12,22 @@ function init(){
     var gradient = "background-image: -webkit-radial-gradient(center center, circle cover,"+color+","+increase_brightness(color, 30)+");" 
     container.innerHTML += "<div class='container' id='"+i+"' onclick='TURNUP("+i+");'><div class='record'><div class='label' style='"+gradient+";'><div class='text' style='color:"+get_text_color(color)+"'>Music</div><div class='hole'</div</div></div></div>";
   }
+  texts = document.getElementsByClassName('text');
+  for(i=0;i<9;i++){
+    var random = Math.floor((Math.random() * ((45 + 1) + 45)) + -45);
+    texts[i].style.webkitTransform = 'rotate('+random+'deg)';
+  }
+
+}
+window.onresize = function() {
+  container = document.getElementById('containerofallcontainers');
+  container.style.height = "100%";
+  container.style.width = window.innerHeight /window.innerWidth *100 + "%";
+  container.style.left = 50 - (window.innerHeight /window.innerWidth*100)/2 + "%";
+  initialwidth = window.innerHeight /window.innerWidth *100 + "%";
+  initialleft = 50 - (window.innerHeight /window.innerWidth*100)/2 + "%";
+
+  // your code
 }
 function get_random_color() {
   return '#' + Math.floor((Math.random() * 0xF00000) + 0x0FFFFF).toString(16);

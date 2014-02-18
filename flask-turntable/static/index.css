@@ -41,7 +41,7 @@
   font-size: 1em;
   text-align:center;
   padding-top:60%;
-  -webkit-transform:rotate(10deg);
+  /*-webkit-transform:rotate(10deg);*/
 }
 #containerofallcontainers{
   position: absolute;
