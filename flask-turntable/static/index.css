@@ -9,8 +9,8 @@
   /*width:150px;*/
   -webkit-transform: rotateY(360deg);
   -webkit-transition-duration: 1.5s;
-  height: inherit;
-  width: inherit;
+  height: 100%;
+  width: 100%;
   top:-5px;
   right:-5px;
   /*background-color: black;*/
@@ -43,25 +43,22 @@
   padding-top:60%;
   -webkit-transform:rotate(10deg);
 }
+#containerofallcontainers{
+  position: absolute;
+  padding:5;
+  top:0px;
+  -webkit-transition: top 2s,right 2s,bottom 2s, left 2s, padding 1s,opacity 1s, width 2s, height 2s, margin-left 2s,margin-right 2s, margin-top 2s, margin-bottom 2s;
+}
 .container {
+  padding: 0px;
   position: relative;
   display: inline-block;
-  height:150px;
-  width:150px;
-  margin: 15px;
+  height:33%;
+  width:33%;
+  margin: 1px;
   transition: width 2s;
-  -webkit-transition: width 2s, height 2s, margin-left 2s,margin-right 2s, margin-top 2s, margin-bottom 2s;
-  /*border: red 1px solid;*/
+  -webkit-transition: padding 1s,opacity 1s, width 2s, height 2s, margin-left 2s,margin-right 2s, margin-top 2s, margin-bottom 2s;
   /*-webkit-transform: translateZ(1);*/
-}
-.enlarged {
-  /*pointer-events: none;*/
-  /*translateZ( -100px );*/
-  margin-left:calc( 50% - 250px );
-  margin-right:calc( 50% - 250px );
-  margin-top:calc( 25% - 250px );
-  height:500px;
-  width: 500px;
 }
 @-webkit-keyframes rotate {
     from{
