@@ -1,5 +1,5 @@
 #update yum packages and grab git
-sudo yum update
+sudo yum update -y
 sudo yum install -y git
 
 #switch to Python 2.7

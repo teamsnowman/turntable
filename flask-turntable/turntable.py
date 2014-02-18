@@ -2,6 +2,7 @@ import os
 from flask import Flask, request, redirect, url_for, send_from_directory, jsonify, render_template
 from werkzeug.utils import secure_filename
 import random
+import boto
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -21,15 +22,25 @@ def upload_file():
         file = request.files['file']
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            s3 = boto.connect_s3()
+            bucket = s3.create_bucket('nmoroze-turntable')
+            key = bucket.new_key(filename)
+            key.set_contents_from_file(file, headers=None, replace=True, cb=None, num_cb=10, policy=None, md5=None) 
 
     return render_template('index.html')
 
 @app.route('/get-song')
 def get_song():
-	songs = os.listdir(UPLOAD_FOLDER)
-	filename = random.choice(songs)
-	return jsonify(url='/uploads/'+filename)
+    s3 = boto.connect_s3()
+    bucket = s3.create_bucket('nmoroze-turntable')
+    keys = bucket.list()
+    urls = []
+    for key in keys:
+        urls.append(key.generate_url(expires_in=1800))
+
+    print urls
+    filename = random.choice(urls)
+    return jsonify(url=filename)
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
