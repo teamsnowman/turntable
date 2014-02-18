@@ -1,2 +1,5 @@
 .env
+.DS_Store
+*.pyc
 upload/
+venv
