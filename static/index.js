@@ -63,7 +63,7 @@ function enlargeRotate(id){
     a = (id_i-(id_i%3))/3;
     coac.style.height = "300%" ;
     coac.style.left = -b*parseInt(coac.style.width)+"%";
-    coac.style.top = -a*parseInt(coac.style.width)*1.87+"%";
+    coac.style.top = -a*parseInt(coac.style.height)/3+"%";
     coac.style.width = parseInt(coac.style.width )*3 +"%";
     setTimeout(function(){
       document.getElementById(id).className += ' rotating ' ;
