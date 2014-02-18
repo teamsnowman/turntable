@@ -38,4 +38,4 @@ def uploaded_file(filename):
 
 if __name__ == "__main__":
     app.debug = True
-    app.run(threaded = True)
+    app.run(port=8080, threaded = True)
