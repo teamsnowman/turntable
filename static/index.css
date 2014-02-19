@@ -110,3 +110,7 @@
   -webkit-animation: rotate 5s linear infinite;
 }
 
+.btn {
+  border-radius: 5px;
+  padding: 10px;
+}
