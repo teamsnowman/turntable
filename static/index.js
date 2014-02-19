@@ -8,9 +8,9 @@ function init(){
   container.style.width = window.innerHeight /window.innerWidth *100 + "%";
   container.style.left = 50 - (window.innerHeight /window.innerWidth*100)/2 + "%";
   for(var i=0;i<9;i++){
-    var color = get_random_color();
-    var gradient = "background-image: -webkit-radial-gradient(center center, circle cover,"+color+","+increase_brightness(color, 30)+");" 
-    container.innerHTML += "<div class='container' id='"+i+"' onclick='TURNUP("+i+");'><div class='record'><div class='label' style='"+gradient+";'><div class='text' style='color:"+get_text_color(color)+"'>Music</div><div class='hole'</div</div></div></div>";
+    var color = getRandomColor();
+    var gradient = "background-image: -webkit-radial-gradient(center center, circle cover,"+color+","+increaseBrightness(color, 30)+");" 
+    container.innerHTML += "<div class='container' id='"+i+"' onclick='TURNUP("+i+");'><div class='record'><div class='label' style='"+gradient+";'><div class='text' style='color:"+get_text_color(color)+"'>Music</div><div class='hole'</div</div></div></div>";   
   }
   var texts = document.getElementsByClassName('text');
   for(i=0;i<9;i++){
@@ -27,17 +27,17 @@ window.onresize = function() {
   initialwidth = window.innerHeight /window.innerWidth *100 + "%";
   initialleft = 50 - (window.innerHeight /window.innerWidth*100)/2 + "%";
 }
-function get_random_color() {
+function getRandomColor() {
   return '#' + Math.floor((Math.random() * 0xF00000) + 0x0FFFFF).toString(16);
 }
 function get_text_color(color) {
-  // console.log(get_brightness(color));
-  if (get_brightness(color) >= 100) {
+  // console.log(getBrightness(color));
+  if (getBrightness(color) >= 100) {
     return 'black';
   }
   return 'white';
 }
-function get_brightness(color) {
+function getBrightness(color) {
   var R = hexToR(color);
   var G = hexToG(color);
   var B = hexToB(color);
@@ -45,8 +45,8 @@ function get_brightness(color) {
 }
 function stopAndGoBack(id){
     var elements = document.getElementsByClassName("container");
-    var swegNeedle = document.getElementById('needle');
-    swegNeedle.remove();
+    var needle = document.getElementById('needle');
+    needle.remove();
     for(i=0;i<9;i++){
       elements[i].className = elements[i].className.replace('rotating','') ;
     }
@@ -57,9 +57,9 @@ function stopAndGoBack(id){
     coac.style.width = parseInt(coac.style.width )/3 +"%";
 }
 function enlargeRotate(id){
-    var swegNeedle = document.createElement('div');
-    swegNeedle.setAttribute('id', 'needle');
-    document.body.appendChild(swegNeedle);
+    var needle = document.createElement('div');
+    needle.setAttribute('id', 'needle');
+    document.body.appendChild(needle);
     var coac = document.getElementById('containerofallcontainers');
     var id_i = parseInt(id);
     var b = (id_i%3);
@@ -73,7 +73,7 @@ function enlargeRotate(id){
     },2000);
 }
 // http://stackoverflow.com/questions/6443990/javascript-calculate-brighter-colour
-function increase_brightness(hex, percent){
+function increaseBrightness(hex, percent){
   // strip the leading # if it's there
   hex = hex.replace(/^\s*#|\s*$/g, '');
 
@@ -140,4 +140,3 @@ function TURNUP(id){
     }  
   }
 }
-
