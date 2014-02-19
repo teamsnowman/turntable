@@ -10,7 +10,7 @@ function init(){
   for(var i=0;i<9;i++){
     var color = getRandomColor();
     var gradient = "background-image: -webkit-radial-gradient(center center, circle cover,"+color+","+increaseBrightness(color, 30)+");" 
-    container.innerHTML += "<div class='container' id='"+i+"' onclick='TURNUP("+i+");'><div class='record'><div class='label' style='"+gradient+";'><div class='text' style='color:"+get_text_color(color)+"'>Music</div><div class='hole'</div</div></div></div>";   
+    container.innerHTML += "<div class='container' ><div id='needle"+i+"'class='needle'></div><div onclick='TURNUP("+i+"); 'id='"+i+"' class='record'><div class='label' style='"+gradient+";'><div class='text' style='color:"+get_text_color(color)+"'>Music</div><div class='hole'</div</div></div></div>";   
   }
   var texts = document.getElementsByClassName('text');
   for(i=0;i<9;i++){
@@ -43,9 +43,8 @@ function getBrightness(color) {
   return (R + G + B) / 3;
 }
 function stopAndGoBack(id){
+    document.getElementById(id).parentNode.className += ' fade'
     var elements = document.getElementsByClassName("container");
-    var needle = document.getElementById('needle');
-    needle.remove();
     for(i=0;i<9;i++){
       elements[i].className = elements[i].className.replace('rotating','') ;
     }
@@ -56,9 +55,6 @@ function stopAndGoBack(id){
     coac.style.width = parseInt(coac.style.width )/3 +"%";
 }
 function enlargeRotate(id){
-    var needle = document.createElement('div');
-    needle.setAttribute('id', 'needle');
-    document.body.appendChild(needle);
     var coac = document.getElementById('containerofallcontainers');
     var id_i = parseInt(id);
     var b = (id_i%3);
@@ -69,6 +65,9 @@ function enlargeRotate(id){
     coac.style.width = parseInt(coac.style.width )*3 +"%";
     setTimeout(function(){
       document.getElementById(id).className += ' rotating ' ;
+      var audio = document.getElementById("audio");
+      document.getElementById('needle'+id).style['-webkit-animation']=  'turn';
+      document.getElementById('needle'+id).style['-webkit-animation-duration'] = audio.duration + 's';
     },2000);
 }
 // http://stackoverflow.com/questions/6443990/javascript-calculate-brighter-colour

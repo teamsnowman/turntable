@@ -2,10 +2,9 @@
   <head>
     <script src="static/index.js"></script>
     <link href="static/index.css" rel="stylesheet" type="text/css">
-    <audio id="audio"></audio>
+    <audio onended="stopAndGoBack()" id="audio"></audio>
   </head>
   <body onload = 'init()'>
-  <!-- <div id='needle'></div> -->
   <div id="containerofallcontainers"></div>
   	  <form class='btn' action="/" method=post enctype=multipart/form-data>
       <p><input type=file name=file>
