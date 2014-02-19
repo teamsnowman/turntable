@@ -3,7 +3,7 @@ var initialleft = 50 - (window.innerHeight /window.innerWidth*100)/2 + "%";
 var sw =0;
 var last_id =0;
 function init(){
-  container = document.getElementById('containerofallcontainers');
+  var container = document.getElementById('containerofallcontainers');
   container.style.height = "100%";
   container.style.width = window.innerHeight /window.innerWidth *100 + "%";
   container.style.left = 50 - (window.innerHeight /window.innerWidth*100)/2 + "%";
@@ -12,7 +12,7 @@ function init(){
     var gradient = "background-image: -webkit-radial-gradient(center center, circle cover,"+color+","+increase_brightness(color, 30)+");" 
     container.innerHTML += "<div class='container' id='"+i+"' onclick='TURNUP("+i+");'><div class='record'><div class='label' style='"+gradient+";'><div class='text' style='color:"+get_text_color(color)+"'>Music</div><div class='hole'</div</div></div></div>";
   }
-  texts = document.getElementsByClassName('text');
+  var texts = document.getElementsByClassName('text');
   for(i=0;i<9;i++){
     var random = Math.floor((Math.random() * ((45 + 1) + 45)) + -45);
     texts[i].style.webkitTransform = 'rotate('+random+'deg)';
@@ -26,8 +26,6 @@ window.onresize = function() {
   container.style.left = 50 - (window.innerHeight /window.innerWidth*100)/2 + "%";
   initialwidth = window.innerHeight /window.innerWidth *100 + "%";
   initialleft = 50 - (window.innerHeight /window.innerWidth*100)/2 + "%";
-
-  // your code
 }
 function get_random_color() {
   return '#' + Math.floor((Math.random() * 0xF00000) + 0x0FFFFF).toString(16);
@@ -40,13 +38,15 @@ function get_text_color(color) {
   return 'white';
 }
 function get_brightness(color) {
-  R = hexToR(color);
-  G = hexToG(color);
-  B = hexToB(color);
+  var R = hexToR(color);
+  var G = hexToG(color);
+  var B = hexToB(color);
   return (R + G + B) / 3;
 }
 function stopAndGoBack(id){
-    elements = document.getElementsByClassName("container");
+    var elements = document.getElementsByClassName("container");
+    var swegNeedle = document.getElementById('needle');
+    swegNeedle.remove();
     for(i=0;i<9;i++){
       elements[i].className = elements[i].className.replace('rotating','') ;
     }
@@ -57,10 +57,13 @@ function stopAndGoBack(id){
     coac.style.width = parseInt(coac.style.width )/3 +"%";
 }
 function enlargeRotate(id){
-    coac = document.getElementById('containerofallcontainers');
-    id_i = parseInt(id);
-    b = (id_i%3);
-    a = (id_i-(id_i%3))/3;
+    var swegNeedle = document.createElement('div');
+    swegNeedle.setAttribute('id', 'needle');
+    document.body.appendChild(swegNeedle);
+    var coac = document.getElementById('containerofallcontainers');
+    var id_i = parseInt(id);
+    var b = (id_i%3);
+    var a = (id_i-(id_i%3))/3;
     coac.style.height = "300%" ;
     coac.style.left = -b*parseInt(coac.style.width)+"%";
     coac.style.top = -a*parseInt(coac.style.height)/3+"%";
@@ -80,8 +83,8 @@ function increase_brightness(hex, percent){
   }
 
   var r = parseInt(hex.substr(0, 2), 16),
-      g = parseInt(hex.substr(2, 2), 16),
-      b = parseInt(hex.substr(4, 2), 16);
+  g = parseInt(hex.substr(2, 2), 16),
+  b = parseInt(hex.substr(4, 2), 16);
 
   return '#' +
      ((0|(1<<8) + r + (256 - r) * percent / 100).toString(16)).substr(1) +
@@ -137,3 +140,4 @@ function TURNUP(id){
     }  
   }
 }
+

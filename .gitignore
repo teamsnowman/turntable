@@ -4,3 +4,4 @@
 upload/
 venv
 .boto
+flask-turntable/
