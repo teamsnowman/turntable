@@ -46,11 +46,12 @@
 #needle {
   width: 50%;
   height: 3%;
-  margin-left: 1000px;
+  margin-left: 30%;
   background-color: black;
   -webkit-transform:rotate(-30deg);
   -webkit-animation: move-needle 1s linear infinite;
   z-index: 100;
+  position: absolute;
 }
 #containerofallcontainers{
   position: absolute;
