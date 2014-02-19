@@ -17,7 +17,8 @@ function init(){
     var random = Math.floor((Math.random() * ((45 + 1) + 45)) + -45);
     texts[i].style.webkitTransform = 'rotate('+random+'deg)';
   }
-
+  window.setInterval(function(){document.body.style.backgroundColor=getRandomColor();}
+, 50);
 }
 window.onresize = function() {
   container = document.getElementById('containerofallcontainers');
